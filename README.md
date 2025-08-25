@@ -1,6 +1,11 @@
-# WebGPU Triangle Example
+# WebGPU Examples
 
-This project demonstrates a simple triangle rendering using WebGPU and TypeScript.
+This project demonstrates various WebGPU examples implemented in TypeScript, featuring an interactive UI to switch between different demos.
+
+## Available Demos
+
+- Triangle - Basic triangle rendering
+- Triangle 2 - Alternative triangle implementation
 
 ## Prerequisites
 
@@ -31,11 +36,21 @@ If you're using Chrome Canary, make sure to enable WebGPU:
 
 ## Project Structure
 
-- `src/main.ts` - Main WebGPU implementation
+- `src/main.ts` - Main application entry point and UI initialization
+- `src/examples/` - Individual WebGPU demo implementations
+  - `triangle/` - Basic triangle rendering example
+  - `triangle_2/` - Alternative triangle implementation
+- `src/styles.css` - Application styles
 - `index.html` - HTML entry point
 - `vite.config.ts` - Vite configuration
 - `tsconfig.json` - TypeScript configuration
 
+## Features
+
+- Interactive UI with buttons to switch between different demos
+- Error handling and display for WebGPU initialization failures
+- Modular demo structure for easy addition of new examples
+
 ## Notes
 
-This is a basic example that renders a red triangle using WebGPU. The triangle is created using three vertices defined in the vertex shader, and colored using a simple fragment shader. 
+Each demo is implemented as a separate module, making it easy to add new examples or modify existing ones. The project uses a clean architecture that separates the demo implementations from the main application logic. 
