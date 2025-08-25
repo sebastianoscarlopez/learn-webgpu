@@ -1,0 +1,17 @@
+{
+  "name": "learn-webgpu",
+  "version": "1.0.0",
+  "description": "A simple WebGPU triangle example using TypeScript",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@webgpu/types": "^0.1.64"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2",
+    "vite": "^7.1.3"
+  }
+}
