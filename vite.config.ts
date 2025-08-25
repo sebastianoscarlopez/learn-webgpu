@@ -1,10 +1,11 @@
+/// <reference types="node" />
 import { defineConfig } from 'vite';
+import path from 'path';
 
 export default defineConfig({
-  server: {
-    headers: {
-      'Cross-Origin-Embedder-Policy': 'require-corp',
-      'Cross-Origin-Opener-Policy': 'same-origin',
-    },
-  },
-}); 
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src')
+    }
+  }
+});

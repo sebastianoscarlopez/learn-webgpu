@@ -5,13 +5,19 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {
     "@webgpu/types": "^0.1.64"
   },
   "devDependencies": {
-    "typescript": "^5.9.2",
-    "vite": "^7.1.3"
+    "@eslint/js": "^8.57.0",
+    "@types/node": "^24.3.0",
+    "typescript": "^5.5.0",
+    "vite": "^7.1.3",
+    "eslint": "^8.57.0",
+    "@typescript-eslint/parser": "^7.3.1",
+    "@typescript-eslint/eslint-plugin": "^7.3.1"
   }
 }

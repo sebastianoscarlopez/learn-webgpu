@@ -1,0 +1,42 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": ["./tsconfig.json", "./tsconfig.node.json"]
+  },
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "indent": ["error", 2, {
+      "SwitchCase": 1,
+      "VariableDeclarator": 1,
+      "outerIIFEBody": 1,
+      "MemberExpression": 1,
+      "FunctionDeclaration": { "parameters": 1, "body": 1 },
+      "FunctionExpression": { "parameters": 1, "body": 1 },
+      "CallExpression": { "arguments": 1 },
+      "ArrayExpression": 1,
+      "ObjectExpression": 1,
+      "ImportDeclaration": 1,
+      "flatTernaryExpressions": false,
+      "ignoreComments": false
+    }],
+    "@typescript-eslint/indent": ["error", 2],
+    "no-mixed-spaces-and-tabs": "error",
+    "no-trailing-spaces": "error"
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "indent": "off",
+        "@typescript-eslint/indent": ["error", 2]
+      }
+    }
+  ]
+} 
