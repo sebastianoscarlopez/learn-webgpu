@@ -1,11 +1,13 @@
 import { initDemo as triangleDemo } from '@/examples/triangle';
 import { initDemo as triangle2Demo } from '@/examples/triangle_2';
+import { initDemo as triangle3Demo } from '@/examples/triangle_3';
 import './styles.css';
 
 // Add placeholder demos for the remaining examples
 const allDemos = {
   'Triangle': triangleDemo,
   'Triangle_2': triangle2Demo,
+  'Triangle_3': triangle3Demo,
 };
 
 function createButton(text: string, onClick: () => void): HTMLButtonElement {
