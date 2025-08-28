@@ -10,6 +10,11 @@ const allDemos = {
   'Triangle_3': triangle3Demo,
 };
 
+let currentDemo: {
+  name: string;
+  renderer: any;
+} | null = null;
+
 function createButton(text: string, onClick: () => void): HTMLButtonElement {
   const button = document.createElement('button');
   button.textContent = text;
@@ -25,9 +30,20 @@ function initUI() {
   // Create buttons
   Object.entries(allDemos).forEach(([name, handler]) => {
     const button = createButton(name, async () => {
+      if(currentDemo?.name === name) {
+        return;
+      }
+
+      currentDemo?.renderer?.dispose?.();
+
+      currentDemo = {
+        name,
+        renderer: null,
+      };
+
       const canvas = document.getElementById('webgpu-canvas') as HTMLCanvasElement;
       try {
-        await handler(canvas);
+        currentDemo.renderer = await handler(canvas);
       } catch (error: unknown) {
         console.error(`Failed to initialize ${name} demo:`, error);
         const errorMessage = document.createElement('div');

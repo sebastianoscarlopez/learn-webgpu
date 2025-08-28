@@ -14,8 +14,7 @@ export async function initDemo (canvas: HTMLCanvasElement) {
     // Render the triangle
     renderer.render();
 
-    // Uncomment to enable animation:
-    // animate();
+    return renderer;
   } catch (error) {
     console.error('Failed to initialize WebGPU:', error);
     throw error;

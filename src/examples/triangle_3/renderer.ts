@@ -1,5 +1,7 @@
 /// <reference types="@webgpu/types" />
-import { Vec2, vec2, Vec4, vec4 } from "wgpu-matrix";
+import { Pane } from "tweakpane";
+import { vec2, vec4 } from "wgpu-matrix";
+import { debounce } from "@/utils/functions";
 
 export class TriangleRenderer {
   private device!: GPUDevice;
@@ -9,6 +11,57 @@ export class TriangleRenderer {
   private fragmentShader: string;
   private uniforms!: GPUBuffer;
   private bindGroup!: GPUBindGroup;
+  private pane?: Pane;
+
+  private gui_params: {
+    scale: number;
+    color: { r: number, g: number, b: number, a: number };
+    offset: { x: number, y: number };
+  } = {
+    scale: 1,
+    color: {r: 255, g: 0, b: 0, a: 1},
+    offset: {x: 0, y: 0},
+  };
+
+  private async setupGUI(): Promise<void> {
+    this.pane = new Pane();
+
+    this.pane.on('change', debounce(() => {
+      this.updateUniforms();
+      this.render();
+    }, 1));
+
+    this.pane.addBinding(this.gui_params, 'scale', {
+      min: 0.1,
+      max: 2,
+      step: 0.1,
+    });
+
+    this.pane.addBinding(this.gui_params, 'color', {
+      view: 'color',
+      alpha: true,
+      color: {
+        type: 'float'
+      }
+    });
+
+    this.pane.addBinding(this.gui_params, 'offset',
+      {
+        x: {
+          min: -2,
+          max: 2,
+          step: 0.1,
+        },
+        y: {
+          min: -2,
+          max: 2,
+          step: 0.1,
+        },
+      }
+    );
+  }
+
+  
 
   constructor(
     private canvas: HTMLCanvasElement,
@@ -26,11 +79,9 @@ export class TriangleRenderer {
     await this.setupUniforms();
     await this.createBindGroup();
 
-    await this.updateUniforms({
-      color: vec4.create(1, 0, 0, 1),
-      scale: vec2.create(1, 1),
-      offset: vec2.create(0, 0),
-    });
+    await this.updateUniforms();
+
+    await this.setupGUI();
   }
 
   private async createBindGroup(): Promise<void> {
@@ -57,11 +108,12 @@ export class TriangleRenderer {
     });
   }
 
-  private async updateUniforms({ color, scale, offset }: { color: Vec4, scale: Vec2, offset: Vec2 }): Promise<void> {
+  private async updateUniforms(): Promise<void> {
     const data = new Float32Array(this.uniforms.size / 4);
+    const color = vec4.create(this.gui_params.color.r, this.gui_params.color.g, this.gui_params.color.b, this.gui_params.color.a);
     data.set(color);
-    data.set(scale, 4);
-    data.set(offset, 6);
+    data.set(vec2.create(this.gui_params.scale, this.gui_params.scale), 4);
+    data.set(vec2.create(this.gui_params.offset.x, this.gui_params.offset.y), 6);
     this.device.queue.writeBuffer(this.uniforms, 0, data);
   }
 
@@ -126,7 +178,7 @@ export class TriangleRenderer {
     });
   }
 
-  render(): void {
+  async render(): Promise<void> {
     const commandEncoder = this.device.createCommandEncoder();
     const renderPassDescriptor: GPURenderPassDescriptor = {
       colorAttachments: [
@@ -146,5 +198,11 @@ export class TriangleRenderer {
     passEncoder.end();
 
     this.device.queue.submit([commandEncoder.finish()]);
+  }
+
+  public dispose(): void {
+    if (this.pane) {
+      this.pane.dispose();
+    }
   }
 }
