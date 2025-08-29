@@ -1,25 +1,35 @@
-import { initDemo as triangleDemo } from '@/examples/triangle';
-import { initDemo as triangle2Demo } from '@/examples/triangle_2';
-import { initDemo as triangle3Demo } from '@/examples/triangle_3';
+import triangleDemo from '@/examples/triangle';
+import triangle2Demo from '@/examples/triangle_2';
+import triangle3Demo from '@/examples/triangle_3';
 import './styles.css';
 
 // Add placeholder demos for the remaining examples
-const allDemos = {
-  'Triangle': triangleDemo,
-  'Triangle_2': triangle2Demo,
-  'Triangle_3': triangle3Demo,
-};
+const allDemos = [
+  triangleDemo,
+  triangle2Demo,
+  triangle3Demo,
+];
 
 let currentDemo: {
-  name: string;
+  title: string;
+  description: string;
   renderer: any;
 } | null = null;
 
-function createButton(text: string, onClick: () => void): HTMLButtonElement {
+function createButton(title: string, description: string, onClick: () => void): HTMLButtonElement {
   const button = document.createElement('button');
-  button.textContent = text;
+  button.textContent = title;
   button.className = 'demo-button';
-  button.onclick = onClick;
+  button.onclick = () => {
+    // Update the description first
+    const descriptionDiv = document.querySelector('.description');
+    if (descriptionDiv) {
+      descriptionDiv.textContent = description;
+    }
+    onClick();
+  };
+  button.title = description;
+  
   return button;
 }
 
@@ -28,22 +38,24 @@ function initUI() {
   const menu = document.querySelector('.menu') as HTMLDivElement;
 
   // Create buttons
-  Object.entries(allDemos).forEach(([name, handler]) => {
-    const button = createButton(name, async () => {
-      if(currentDemo?.name === name) {
+  allDemos.forEach((demoSelected) => {
+    const {title, description, initDemo} = demoSelected;
+    const button = createButton(title, description, async () => {
+      if(currentDemo?.title === title) {
         return;
       }
 
       currentDemo?.renderer?.dispose?.();
 
       currentDemo = {
-        name,
+        title,
+        description,
         renderer: null,
       };
 
       const canvas = document.getElementById('webgpu-canvas') as HTMLCanvasElement;
       try {
-        currentDemo.renderer = await handler(canvas);
+        currentDemo.renderer = await initDemo(canvas);
       } catch (error: unknown) {
         console.error(`Failed to initialize ${name} demo:`, error);
         const errorMessage = document.createElement('div');

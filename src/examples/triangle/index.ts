@@ -96,3 +96,9 @@ export async function initDemo(canvas: HTMLCanvasElement) {
   // Submit the command buffer
   device.queue.submit([commandEncoder.finish()]);
 }
+
+export default {
+  title: 'Triangle 1',
+  description: 'The hello world of WebGPU. A simple triangle.',
+  initDemo,
+};

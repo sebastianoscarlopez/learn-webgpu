@@ -8,10 +8,44 @@ body {
     font-family: Arial, sans-serif;
 }
 
+#container {
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .menu {
     display: flex;
     gap: 20px;
     margin-bottom: 20px;
+    width: 100%;
+}
+
+.description {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    width: 760px; /* 800px - 40px padding */
+    line-height: 1.6;
+    color: #333;
+    height: 51.2px; /* Accommodates exactly 2 lines: font-size (16px) * line-height (1.6) * 2 lines */
+    overflow: hidden;
+    font-size: 16px;
+}
+
+.description h2 {
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 16px;
+}
+
+.description p {
+    margin: 0 0 12px 0;
+    font-size: 16px;
 }
 
 .demo-button {

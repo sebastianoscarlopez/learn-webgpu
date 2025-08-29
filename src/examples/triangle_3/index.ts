@@ -20,3 +20,9 @@ export async function initDemo (canvas: HTMLCanvasElement) {
     throw error;
   }
 }
+
+export default {
+  title: 'Triangle 3',
+  description: 'A simple triangle. Using uniforms to set the color, position and size',
+  initDemo,
+};

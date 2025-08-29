@@ -20,3 +20,9 @@ export async function initDemo (canvas: HTMLCanvasElement) {
     throw error;
   }
 }
+
+export default {
+  title: 'Triangle 2',
+  description: 'A simple triangle. The vertex shader sets a color in every point, by inter-stage variable it is interpolated to the fragment shader.',
+  initDemo,
+};
