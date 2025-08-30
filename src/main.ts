@@ -1,6 +1,7 @@
 import triangleDemo from '@/examples/triangle';
 import triangle2Demo from '@/examples/triangle_2';
 import triangle3Demo from '@/examples/triangle_3';
+import triangle4Demo from '@/examples/triangle_4';
 import './styles.css';
 
 // Add placeholder demos for the remaining examples
@@ -8,6 +9,7 @@ const allDemos = [
   triangleDemo,
   triangle2Demo,
   triangle3Demo,
+  triangle4Demo
 ];
 
 let currentDemo: {
