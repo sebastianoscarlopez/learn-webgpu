@@ -1,9 +1,5 @@
-import * as m from "wgpu-matrix";
-import { mat4, Mat4, vec3, vec4 } from "wgpu-matrix";
+import { mat4, vec3, Mat4 } from "wgpu-matrix";
 import { VectorXYZ } from "@/definitions/VectorXYZ";
-
-// @ts-ignore
-window.mat4 = mat4;
 
 export class CameraLookAt {
   private position: VectorXYZ = { x: 0, y: 0, z: 10 };

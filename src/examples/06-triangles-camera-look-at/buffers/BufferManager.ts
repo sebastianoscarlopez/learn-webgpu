@@ -57,7 +57,7 @@ export class BufferManager {
     this.device.queue.writeBuffer(
       this.globalBuffer,
       0,
-      projectionMatrix,
+      new Float32Array(projectionMatrix),
       0,
       16
     );
@@ -65,7 +65,7 @@ export class BufferManager {
     this.device.queue.writeBuffer(
       this.globalBuffer,
       64,  // offset by 64 bytes (16 floats * 4 bytes)
-      viewMatrix,
+      new Float32Array(viewMatrix),
       0,
       16
     );

@@ -110,12 +110,12 @@ export class MouseHandler {
     }));
   }
 
-  private handleMouseDown(event: MouseEvent): void {
+  private handleMouseDown(_event: MouseEvent): void {
     this.isMouseDown = true;
     this.dragStartPosition = { ...this.position };
   }
 
-  private handleMouseUp(event: MouseEvent): void {
+  private handleMouseUp(_event: MouseEvent): void {
     if (!this.isDragging) {
       // If we weren't dragging, this is a click
       this.clickCallbacks.forEach(callback => callback(this.position));
@@ -134,7 +134,7 @@ export class MouseHandler {
     this.wheelCallbacks.forEach(callback => callback(delta));
   }
 
-  private handleMouseLeave(event: MouseEvent): void {
+  private handleMouseLeave(_event: MouseEvent): void {
     this.isMouseDown = false;
     this.isDragging = false;
   }

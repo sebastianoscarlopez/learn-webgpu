@@ -133,12 +133,12 @@ export class TriangleRenderer {
 
   private async updateGlobal(): Promise<void> {
     this.updatePerspectiveView();
-    const viewMatrix = this.getCameraView();
+    const viewMatrix: Mat4 = this.getCameraView();
 
     this.device.queue.writeBuffer(
       this.globalBuffer,
       0,
-      this.projectionMatrix, // float32 typed array
+      new Float32Array(this.projectionMatrix), // Convert matrix to Float32Array
       0,
       16 // elements in the matrix, not bytes -> https://developer.mozilla.org/en-US/docs/Web/API/GPUQueue/writeBuffer
     );
@@ -147,7 +147,7 @@ export class TriangleRenderer {
     this.device.queue.writeBuffer(
       this.globalBuffer,
       64,  // offset by 64 bytes (16 floats * 4 bytes)
-      viewMatrix,
+      new Float32Array(viewMatrix),
       0,
       16
     );
@@ -156,7 +156,7 @@ export class TriangleRenderer {
   private updatePerspectiveView() {
     const fov = Math.PI / 4; // 45 degrees in radians
     const aspectRatio = this.canvas.width / this.canvas.height;
-    const projectionMatrix = mat4.perspective(
+    const projectionMatrix: Mat4 = mat4.perspective(
       fov,
       aspectRatio,
       0.1,
@@ -164,13 +164,12 @@ export class TriangleRenderer {
     );
 
     // const projectionMatrix = mat4.ortho(-1, 1, -1, 1, 0.1, 100.0);
-
-    this.projectionMatrix =projectionMatrix;
+    this.projectionMatrix = projectionMatrix;
   }
 
-  private getCameraView() {
+  private getCameraView(): Mat4 {
     // Create a view matrix from camera position and rotation
-    const viewMatrix = mat4.identity();
+    const viewMatrix: Mat4 = mat4.identity();
 
     // First translate
     mat4.translate(viewMatrix, [
@@ -212,7 +211,7 @@ export class TriangleRenderer {
       );
 
       // create a view matrix
-      const viewMatrix = mat4.identity();
+      const viewMatrix: Mat4 = mat4.identity();
       mat4.translate(viewMatrix, [
         position[0],
         position[1],
