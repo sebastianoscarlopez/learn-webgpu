@@ -22,7 +22,7 @@ export async function initDemo (canvas: HTMLCanvasElement) {
 }
 
 export default {
-  title: 'Triangle 5',
-  description: 'Lots of triangles With a camera',
+  title: 'Uniforms',
+  description: 'Render a simple triangle and use uniforms to dynamically control its color, position, and size in the shader.',
   initDemo,
 };

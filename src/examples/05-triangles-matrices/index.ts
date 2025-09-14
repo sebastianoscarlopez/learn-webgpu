@@ -22,7 +22,7 @@ export async function initDemo (canvas: HTMLCanvasElement) {
 }
 
 export default {
-  title: 'Triangle 4',
-  description: 'Lots of triangles. Using uniform for zoom and storage buffers to set the color, position and size and updating them in the shader',
+  title: 'Matrices',
+  description: 'Render multiple triangles with projection, view and model matrices',
   initDemo,
 };

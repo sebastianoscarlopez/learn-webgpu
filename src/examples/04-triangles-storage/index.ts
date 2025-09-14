@@ -22,7 +22,7 @@ export async function initDemo (canvas: HTMLCanvasElement) {
 }
 
 export default {
-  title: 'Triangle 3',
-  description: 'A simple triangle. Using uniforms to set the color, position and size',
+  title: 'Storage',
+  description: 'This is a simple example of how to use storage buffers to store data in the GPU and update them in the shader.',
   initDemo,
 };

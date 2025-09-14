@@ -1,17 +1,17 @@
-import triangleDemo from '@/examples/triangle';
-import triangle2Demo from '@/examples/triangle_2';
-import triangle3Demo from '@/examples/triangle_3';
-import triangle4Demo from '@/examples/triangle_4';
-import triangle5Demo from '@/examples/triangle_5';
-import './styles.css';
+import triangleDemo from '@/examples/01-triangle';
+import triangleVaryings from '@/examples/02-triangle-varyings';
+import triangleUniforms from '@/examples/03-triangle-uniforms';
+import triangleStorage from '@/examples/04-triangles-storage';
+import triangleMatrices from '@/examples/05-triangles-matrices';
 
-// Add placeholder demos for the remaining examples
+import '@/styles.css';
+
 const allDemos = [
   triangleDemo,
-  triangle2Demo,
-  triangle3Demo,
-  triangle4Demo,
-  triangle5Demo,
+  triangleVaryings,
+  triangleUniforms,
+  triangleStorage,
+  triangleMatrices,
 ];
 
 let currentDemo: {
@@ -22,7 +22,7 @@ let currentDemo: {
 
 function createButton(title: string, description: string, onClick: () => void): HTMLButtonElement {
   const button = document.createElement('button');
-  button.textContent = title;
+  button.textContent = title.toUpperCase();
   button.className = 'demo-button';
   button.onclick = () => {
     // Update the description first
@@ -40,6 +40,7 @@ function createButton(title: string, description: string, onClick: () => void): 
 function initUI() {
   // Get existing elements
   const menu = document.querySelector('.menu') as HTMLDivElement;
+  const canvas = document.getElementById('webgpu-canvas') as HTMLCanvasElement;
 
   // Create buttons
   allDemos.forEach((demoSelected) => {
@@ -57,7 +58,6 @@ function initUI() {
         renderer: null,
       };
 
-      const canvas = document.getElementById('webgpu-canvas') as HTMLCanvasElement;
       try {
         currentDemo.renderer = await initDemo(canvas);
       } catch (error: unknown) {

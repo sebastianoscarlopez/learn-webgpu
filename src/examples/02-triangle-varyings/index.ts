@@ -22,7 +22,7 @@ export async function initDemo (canvas: HTMLCanvasElement) {
 }
 
 export default {
-  title: 'Triangle 2',
-  description: 'A simple triangle. The vertex shader sets a color in every point, by inter-stage variable it is interpolated to the fragment shader.',
+  title: 'Varyings',
+  description: 'Render a simple triangle and use varyings to interpolate the color from the vertex shader to the fragment shader.',
   initDemo,
 };

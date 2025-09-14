@@ -98,7 +98,7 @@ export async function initDemo(canvas: HTMLCanvasElement) {
 }
 
 export default {
-  title: 'Triangle 1',
+  title: 'Hello triangle',
   description: 'The hello world of WebGPU. A simple triangle.',
   initDemo,
 };
