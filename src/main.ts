@@ -3,6 +3,7 @@ import triangleVaryings from '@/examples/02-triangle-varyings';
 import triangleUniforms from '@/examples/03-triangle-uniforms';
 import triangleStorage from '@/examples/04-triangles-storage';
 import triangleMatrices from '@/examples/05-triangles-matrices';
+import cameraLookAt from '@/examples/06-triangles-camera-look-at';
 
 import '@/styles.css';
 
@@ -12,6 +13,7 @@ const allDemos = [
   triangleUniforms,
   triangleStorage,
   triangleMatrices,
+  cameraLookAt,
 ];
 
 let currentDemo: {
