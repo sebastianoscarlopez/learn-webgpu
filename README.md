@@ -4,15 +4,15 @@ This project demonstrates various WebGPU examples implemented in TypeScript, fea
 
 ## Available Demos
 
-- Triangle - Basic triangle rendering
-- Triangle 2 - Alternative triangle implementation
+1. Triangle - The hello world of WebGPU. A simple triangle.
+2. Varyings - Render a simple triangle and use varyings to interpolate the color from the vertex shader to the fragment shader.
+3. Uniforms - Render a simple triangle and use uniforms to dynamically control its color, position, and size in the shader.
+4. Storage - This is a simple example of how to use storage buffers to store data in the GPU and update them in the shader.
+5. Matrices - Render multiple triangles with projection, view and model matrices
+6. Camera look at - Render multiple triangles with a camera that can be controlled using the mouse. This "look at" camera is simple and intuitive, making it useful for focusing on a specific object in the scene, even if it is not the most versatile camera type.
+7. Cube - Render a cube loaded from a .obj file.
 
-## Prerequisites
-
-- Node.js (latest LTS version recommended)
-- A browser that supports WebGPU (Chrome Canary or Edge Canary with WebGPU flags enabled)
-
-## Setup
+## Setup 🛠️
 
 1. Install dependencies:
 ```bash
@@ -26,31 +26,42 @@ npm run dev
 
 3. Open your browser and navigate to the URL shown in the terminal (usually `http://localhost:5173`)
 
-## Browser Configuration
-
-If you're using Chrome Canary, make sure to enable WebGPU:
-1. Go to `chrome://flags`
-2. Search for "WebGPU"
-3. Enable "Unsafe WebGPU"
-4. Restart the browser
-
-## Project Structure
+## Project Structure 📁
 
 - `src/main.ts` - Main application entry point and UI initialization
 - `src/examples/` - Individual WebGPU demo implementations
-  - `triangle/` - Basic triangle rendering example
-  - `triangle_2/` - Alternative triangle implementation
 - `src/styles.css` - Application styles
 - `index.html` - HTML entry point
 - `vite.config.ts` - Vite configuration
 - `tsconfig.json` - TypeScript configuration
 
-## Features
+## Features ✨
 
 - Interactive UI with buttons to switch between different demos
 - Error handling and display for WebGPU initialization failures
 - Modular demo structure for easy addition of new examples
 
-## Notes
+## Notes 📝
 
-Each demo is implemented as a separate module, making it easy to add new examples or modify existing ones. The project uses a clean architecture that separates the demo implementations from the main application logic. 
+Each demo is implemented as a separate module, making it easy to add new examples or modify existing ones. The project uses a clean architecture that separates the demo implementations from the main application logic.
+
+## Internal documentation 📚
+
+- [Basic Triangle (basic-triangle.md)](src/examples/01-triangle/basic-triangle.md)
+- [Shader Interpolation (shader-interpolation.md)](src/examples/02-triangle-varyings/shader-interpolation.md)
+- [Uniform Variables (uniform-variables.md)](src/examples/03-triangle-uniforms/uniform-variables.md)
+- [Storage Buffers (storage-buffers.md)](src/examples/04-triangles-storage/storage-buffers.md)
+- [Matrix Transforms (matrix-transforms.md)](src/examples/05-triangles-matrices/matrix-transforms.md)
+- [Camera Setup (camera-setup.md)](src/examples/06-triangles-camera-look-at/camera-setup.md)
+- [3D Rendering (3d-rendering.md)](src/examples/07-cube/3d-rendering.md)
+- [Cameras (camera.md)](src/libs/camera/camera.md)
+
+## References and thanks 🚀
+
+- [WebGPU Fundamentals](https://webgpufundamentals.org/webgpu/lessons/webgpu-bind-group-layouts.html)
+- [WebGPU Best Practices](https://toji.dev/webgpu-best-practices/bind-groups)
+- [Cameras Theory in WebGPU](https://carmencincotti.com/2022-04-25/cameras-theory-webgpu)
+
+## License ⚖️
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
