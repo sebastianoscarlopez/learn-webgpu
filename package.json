@@ -9,8 +9,11 @@
     "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {
+    "@loaders.gl/core": "^4.3.4",
+    "@loaders.gl/obj": "^4.3.4",
     "@webgpu/types": "^0.1.64",
     "tweakpane": "^4.0.5",
+    "webgpu-utils": "^2.0.2",
     "wgpu-matrix": "^3.4.0"
   },
   "devDependencies": {

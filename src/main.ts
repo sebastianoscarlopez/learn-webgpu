@@ -4,6 +4,7 @@ import triangleUniforms from '@/examples/03-triangle-uniforms';
 import triangleStorage from '@/examples/04-triangles-storage';
 import triangleMatrices from '@/examples/05-triangles-matrices';
 import cameraLookAt from '@/examples/06-triangles-camera-look-at';
+import cube from '@/examples/07-cube';
 
 import '@/styles.css';
 
@@ -14,6 +15,7 @@ const allDemos = [
   triangleStorage,
   triangleMatrices,
   cameraLookAt,
+  cube,
 ];
 
 let currentDemo: {
@@ -35,7 +37,7 @@ function createButton(title: string, description: string, onClick: () => void): 
     onClick();
   };
   button.title = description;
-  
+
   return button;
 }
 

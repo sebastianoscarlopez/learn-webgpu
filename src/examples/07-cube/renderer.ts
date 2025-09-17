@@ -2,21 +2,28 @@
 import { CameraLookAt } from "@/libs/camera/camera-lookat";
 import { BaseRenderer } from "./core/base-renderer";
 import { RendererGUI } from "./gui/renderer-gui";
-import { BufferManager, RenderObject } from "./buffers/BufferManager";
+import { GlobalBufferManager } from "./buffers/global-buffer-manager";
+import { ModelBufferManager, RenderObject } from "./buffers/model-buffers-manager";
 import { CameraLookAtController } from '@/libs/camera/camera-lookat-controller';
+import { ModelData } from "./model-data";
+import { mat4 } from "wgpu-matrix";
 
-export class TriangleRenderer extends BaseRenderer {
+export class ObjectRenderer extends BaseRenderer {
   private camera: CameraLookAt;
   private gui: RendererGUI;
-  private bufferManager!: BufferManager;
+  private globalBufferManager!: GlobalBufferManager;
+  private modelBufferManager!: ModelBufferManager;
   private objects: RenderObject[] = [];
+  private modelData: ModelData;
 
   constructor(
     canvas: HTMLCanvasElement,
     vertexShaderCode: string,
-    fragmentShaderCode: string
+    fragmentShaderCode: string,
+    modelData: ModelData
   ) {
     super(canvas, vertexShaderCode, fragmentShaderCode);
+
 
     new CameraLookAtController(canvas);
     this.camera = new CameraLookAt(canvas);
@@ -26,33 +33,30 @@ export class TriangleRenderer extends BaseRenderer {
       this.updateGlobal();
       this.render();
     });
+
+    this.modelData = modelData;
   }
 
   async initialize(): Promise<void> {
     await super.initialize();
-    this.bufferManager = new BufferManager(this.device, this.pipeline);
-    await this.bufferManager.initialize();
+    this.globalBufferManager = new GlobalBufferManager(this.device);
+
+    this.modelBufferManager = new ModelBufferManager(this.device);
+
+    this.createPipelineLayout({
+      label: "cube pipeline layout",
+      bindGroupLayouts: [this.globalBufferManager.globalBindGroupLayout, this.modelBufferManager.modelBindGroupLayout]
+    });
+    this.createPipeline();
+
     await this.updateModels();
     await this.gui.initialize();
     this.camera.updateProjectionMatrix();
     await this.updateGlobal();
   }
 
-  private async addObject(): Promise<void> {
-    const modelBuffer = await this.bufferManager.createModelBuffer();
-    const bindGroup = this.bufferManager.createModelBindGroup(modelBuffer);
-
-    const { modelMatrix, color } = this.bufferManager.createRandomModelData();
-    this.bufferManager.updateModelBuffer(modelBuffer, modelMatrix, color);
-
-    this.objects.push({
-      modelBuffer,
-      bindGroup
-    });
-  }
-
   private async updateGlobal(): Promise<void> {
-    this.bufferManager.updateGlobalBuffers(
+    this.globalBufferManager.updateGlobalBuffer(
       this.camera.getProjectionMatrix(),
       this.camera.getViewMatrix()
     );
@@ -65,6 +69,32 @@ export class TriangleRenderer extends BaseRenderer {
     for (let i = this.objects.length; i < currentTotal; i++) {
       await this.addObject();
     }
+  }
+
+  private async addObject(): Promise<void> {
+    const modelBuffers = await this.modelBufferManager.createModelBuffers({
+      maxVertices: this.modelData.positions.length,
+      maxNormals: this.modelData.normals.length,
+    });
+    const bindGroup = this.modelBufferManager.createModelBindGroup(modelBuffers);
+
+    const modelMatrix = mat4.identity();
+
+    if (this.objects.length > 0) {
+      mat4.translate(modelMatrix, [
+        Math.random() * 10 - 5,
+        Math.random() * 10 - 5,
+        Math.random() * 10 - 5,
+      ], modelMatrix);
+    }
+    this.modelData.modelMatrix = modelMatrix;
+
+    this.modelBufferManager.updateModelBuffer(modelBuffers, this.modelData);
+
+    this.objects.push({
+      modelBuffers: modelBuffers,
+      bindGroup
+    });
   }
 
   async render(): Promise<void> {
@@ -97,10 +127,10 @@ export class TriangleRenderer extends BaseRenderer {
 
     const passEncoder = commandEncoder.beginRenderPass(renderPassDescriptor);
     passEncoder.setPipeline(this.pipeline);
-    const totalObjects = Math.min(this.objects.length, this.gui.getTotal());
-    for (let i = 0; i < totalObjects; i++) {
-      passEncoder.setBindGroup(0, this.objects[i].bindGroup);
-      passEncoder.draw(3, 1, 0, 0);
+    passEncoder.setBindGroup(0, this.globalBufferManager.globalBindGroup);
+    for (let i = 0; i < Math.min(this.objects.length, this.gui.getTotal()); i++) {
+      passEncoder.setBindGroup(1, this.objects[i].bindGroup);
+      passEncoder.draw(this.modelData.positions.length / 4, 1, 0, 0);
     }
     passEncoder.end();
 
