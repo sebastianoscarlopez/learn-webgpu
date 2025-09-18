@@ -2,6 +2,7 @@ import { Pane } from "tweakpane";
 import { CameraLookAt } from "@/libs/camera/camera-lookat";
 import { debounce } from "@/utils/functions";
 import { VectorXYZ } from "@/definitions/VectorXYZ";
+import { PaneDragAndDrop } from "@/pane-drag-and-drop";
 
 export interface GUIParams {
   total: number;
@@ -39,7 +40,7 @@ export class RendererGUI {
   }
 
   async initialize(): Promise<void> {
-    this.pane = new Pane();
+    this.pane = new PaneDragAndDrop();
 
     this.pane.addBinding(this.params, 'total', {
       min: 1,
@@ -50,7 +51,7 @@ export class RendererGUI {
     });
 
     const cameraFolder = this.pane.addFolder({ title: 'Camera' });
-    
+
     cameraFolder.addBinding(this.params.camera, 'position', {
       x: { min: -100, max: 100, step: 0.001 },
       y: { min: -100, max: 100, step: 0.001 },
@@ -83,4 +84,4 @@ export class RendererGUI {
       this.pane.dispose();
     }
   }
-} 
+}

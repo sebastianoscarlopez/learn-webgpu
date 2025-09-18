@@ -2,6 +2,7 @@
 import { Pane } from "tweakpane";
 import { vec2, vec4 } from "wgpu-matrix";
 import { debounce } from "@/utils/functions";
+import { PaneDragAndDrop } from "@/pane-drag-and-drop";
 
 export class TriangleRenderer {
   private device!: GPUDevice;
@@ -18,13 +19,13 @@ export class TriangleRenderer {
     color: { r: number, g: number, b: number, a: number };
     offset: { x: number, y: number };
   } = {
-    scale: 1,
-    color: {r: 255, g: 0, b: 0, a: 1},
-    offset: {x: 0, y: 0},
-  };
+      scale: 1,
+      color: {r: 255, g: 0, b: 0, a: 1},
+      offset: {x: 0, y: 0},
+    };
 
   private async setupGUI(): Promise<void> {
-    this.pane = new Pane();
+    this.pane = new PaneDragAndDrop();
 
     this.pane.on('change', debounce(() => {
       this.updateUniforms();
@@ -61,7 +62,7 @@ export class TriangleRenderer {
     );
   }
 
-  
+
 
   constructor(
     private canvas: HTMLCanvasElement,

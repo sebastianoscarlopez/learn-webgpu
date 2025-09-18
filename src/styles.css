@@ -84,3 +84,34 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 } 
+
+.drag-and-drop-container {
+    position: absolute;
+    top: 200px;
+    right: 24px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    width: 300px;
+    border: 4px solid #909090;
+    display: flex;
+    flex-direction: column;
+    min-height: 100px;
+    max-height: 80vh;
+    visibility: hidden;
+}
+
+.drag-and-drop-header {
+    background-color: #909090;
+    padding: 8px 8px;
+    cursor: move;
+    border-bottom: 1px solid #e0e0e0;
+    user-select: none;
+    flex-shrink: 0;
+}
+
+.drag-and-drop-header h2 {
+    margin: 0;
+    font-size: 16px;
+    color: #fff;
+}

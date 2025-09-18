@@ -7,6 +7,7 @@ import cameraLookAt from '@/examples/06-triangles-camera-look-at';
 import cube from '@/examples/07-cube';
 
 import '@/styles.css';
+import '@/drag-and-drop';
 
 const allDemos = [
   triangleDemo,

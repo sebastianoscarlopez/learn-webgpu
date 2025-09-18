@@ -2,6 +2,7 @@
 import { Pane } from "tweakpane";
 import { vec2, vec4 } from "wgpu-matrix";
 import { debounce } from "@/utils/functions";
+import { PaneDragAndDrop } from "@/pane-drag-and-drop";
 
 interface RenderObject {
   modelBuffer: GPUBuffer;
@@ -16,10 +17,10 @@ export class TriangleRenderer {
   private fragmentShader: string;
   private globalBuffer!: GPUBuffer;
   private modelBufferSize: number = 32; // 4 * 4 (color) + 4 * 2 (scale) + 4 * 2 (offset)
-  
+
 
   private objects: RenderObject[] = [];
-  
+
   private pane?: Pane;
 
   private gui_params: {
@@ -29,21 +30,21 @@ export class TriangleRenderer {
     offset: { x: number, y: number };
     zoom: number;
   } = {
-    total: 10,
-    scale: 0.5,
-    color: {r: 0.5, g: 0.5, b: 0.5, a: 1},
-    offset: {x: 0, y: 0},
-    zoom: 1,
-  };
+      total: 10,
+      scale: 0.5,
+      color: {r: 0.5, g: 0.5, b: 0.5, a: 1},
+      offset: {x: 0, y: 0},
+      zoom: 1,
+    };
 
   private async setupGUI(): Promise<void> {
-    this.pane = new Pane();
+    this.pane = new PaneDragAndDrop();
 
     this.pane.on('change', debounce(() => {
-        this.updateModels();
-        this.updateGlobal();
-        this.render();
-      }, 1));
+      this.updateModels();
+      this.updateGlobal();
+      this.render();
+    }, 1));
 
     this.pane.addBinding(this.gui_params, 'total', {
       min: 1,
@@ -87,7 +88,7 @@ export class TriangleRenderer {
     });
   }
 
-  
+
 
   constructor(
     private canvas: HTMLCanvasElement,
@@ -154,7 +155,7 @@ export class TriangleRenderer {
           buffer: modelBuffer
         }
       }
-    ]});
+      ]});
   }
 
   private async updateGlobal(): Promise<void> {
@@ -169,7 +170,7 @@ export class TriangleRenderer {
     for (let i = this.objects.length; i < this.gui_params.total; i++) {
       await this.addObject();
     }
-    
+
     const color = vec4.create(this.gui_params.color.r, this.gui_params.color.g, this.gui_params.color.b, this.gui_params.color.a);
     const scale = vec2.create(this.gui_params.scale, this.gui_params.scale);
 
@@ -276,7 +277,7 @@ export class TriangleRenderer {
 
     const passEncoder = commandEncoder.beginRenderPass(renderPassDescriptor);
     passEncoder.setPipeline(this.pipeline);
-    for (let i = 0; i < this.gui_params.total; i++) { 
+    for (let i = 0; i < this.gui_params.total; i++) {
       passEncoder.setBindGroup(0, this.objects[i].bindGroup);
       passEncoder.draw(3, 1, 0, 0);
     }

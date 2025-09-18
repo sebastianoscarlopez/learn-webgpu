@@ -2,6 +2,7 @@
 import { Pane } from "tweakpane";
 import { vec2, vec3, vec4, mat4, Mat4 } from "wgpu-matrix";
 import { debounce } from "@/utils/functions";
+import { PaneDragAndDrop } from "@/pane-drag-and-drop";
 
 interface RenderObject {
   modelBuffer: GPUBuffer;
@@ -20,7 +21,7 @@ export class TriangleRenderer {
   private projectionMatrix: Mat4 = mat4.identity();
 
   private objects: RenderObject[] = [];
-  
+
   private pane?: Pane;
 
   private gui_params: {
@@ -30,21 +31,21 @@ export class TriangleRenderer {
       rotation: { x: number, y: number, z: number };
     };
   } = {
-    total: 10,
-    camera: {
-      position: {x: 0, y: 0, z: -10},
-      rotation: {x: 0, y: 0, z: 0}
-    }
-  };
+      total: 10,
+      camera: {
+        position: {x: 0, y: 0, z: -10},
+        rotation: {x: 0, y: 0, z: 0}
+      }
+    };
 
   private async setupGUI(): Promise<void> {
-    this.pane = new Pane();
+    this.pane = new PaneDragAndDrop();
 
     this.pane.on('change', debounce(() => {
-        this.updateModels();
-        this.updateGlobal();
-        this.render();
-      }, 1));
+      this.updateModels();
+      this.updateGlobal();
+      this.render();
+    }, 1));
 
     this.pane.addBinding(this.gui_params, 'total', {
       min: 1,
@@ -53,7 +54,7 @@ export class TriangleRenderer {
     });
 
     const cameraFolder = this.pane.addFolder({ title: 'Camera' });
-    
+
     cameraFolder.addBinding(this.gui_params.camera, 'position', {
       x: { min: -5, max: 5, step: 0.1 },
       y: { min: -5, max: 5, step: 0.1 },
@@ -128,7 +129,7 @@ export class TriangleRenderer {
           buffer: modelBuffer
         }
       }
-    ]});
+      ]});
   }
 
   private async updateGlobal(): Promise<void> {
