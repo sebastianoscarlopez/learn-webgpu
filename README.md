@@ -2,15 +2,17 @@
 
 This project demonstrates various WebGPU examples implemented in TypeScript, featuring an interactive UI to switch between different demos.
 
+![Application Interface](images/example-varyings.png)
+
 ## Available Demos
 
-1. Triangle - The hello world of WebGPU. A simple triangle.
-2. Varyings - Render a simple triangle and use varyings to interpolate the color from the vertex shader to the fragment shader.
-3. Uniforms - Render a simple triangle and use uniforms to dynamically control its color, position, and size in the shader.
-4. Storage - This is a simple example of how to use storage buffers to store data in the GPU and update them in the shader.
-5. Matrices - Render multiple triangles with projection, view and model matrices
-6. Camera look at - Render multiple triangles with a camera that can be controlled using the mouse. This "look at" camera is simple and intuitive, making it useful for focusing on a specific object in the scene, even if it is not the most versatile camera type.
-7. Cube - Render a cube loaded from a .obj file.
+1. Triangle - The hello world of WebGPU. A simple triangle. [Learn more](src/examples/01-triangle/basic-triangle.md)
+2. Varyings - Render a simple triangle and use varyings to interpolate the color from the vertex shader to the fragment shader. [Learn more](src/examples/02-triangle-varyings/shader-interpolation.md)
+3. Uniforms - Render a simple triangle and use uniforms to dynamically control its color, position, and size in the shader. [Learn more](src/examples/03-triangle-uniforms/uniform-variables.md)
+4. Storage - This is a simple example of how to use storage buffers to store data in the GPU and update them in the shader. [Learn more](src/examples/04-triangles-storage/storage-buffers.md)
+5. Matrices - Render multiple triangles with projection, view and model matrices. [Learn more](src/examples/05-triangles-matrices/matrix-transforms.md)
+6. Camera look at - Render multiple triangles with a camera that can be controlled using the mouse. This "look at" camera is simple and intuitive, making it useful for focusing on a specific object in the scene, even if it is not the most versatile camera type. [Learn more](src/examples/06-triangles-camera-look-at/camera-setup.md)
+7. Cube - Render a cube loaded from a .obj file. [Learn more](src/examples/07-cube/3d-rendering.md)
 
 ## Setup 🛠️
 

@@ -8,12 +8,6 @@ This example introduces matrix transformations in WebGPU for handling object tra
 - Combining multiple transformations
 - Matrix uniform buffer usage
 
-## Key Concepts
-
-- Matrix mathematics in shaders
-- Transform matrices
-- Coordinate systems
-- Multiple object transformations
-- Performance considerations with matrices
+![Triangles with Matrices Example](../../../images/example-matrices.png)
 
 This example demonstrates how to use matrices to transform objects in 3D space, providing the foundation for more complex 3D graphics. 

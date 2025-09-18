@@ -8,12 +8,7 @@ This example demonstrates the fundamental concepts of WebGPU by rendering a simp
 - Defining vertex data for a triangle
 - Basic rendering pipeline setup
 
-## Key Concepts
-
-- Basic WebGPU initialization
-- Shader creation and compilation
-- Vertex buffer setup
-- Simple rendering pipeline
-- Basic triangle geometry
+![Basic Triangle Example](../../../images/example-triangle.png)
 
 This serves as the foundation for more complex WebGPU examples that follow. 
+

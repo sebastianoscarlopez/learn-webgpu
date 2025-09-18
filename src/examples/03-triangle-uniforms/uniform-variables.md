@@ -8,11 +8,6 @@ This example introduces uniform buffers in WebGPU, demonstrating how to pass dyn
 - Dynamic updates to shader parameters
 - Time-based animations
 
-## Key Concepts
-
-- Uniform buffer creation and binding
-- Buffer updates and synchronization
-- Dynamic shader parameters
-- Shader uniform usage
+![Triangle with Uniforms Example](../../../images/example-uniforms.png)
 
 This example illustrates how to create dynamic effects using uniform buffers to pass data to shaders. 

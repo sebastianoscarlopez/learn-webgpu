@@ -8,12 +8,6 @@ This example demonstrates the use of storage buffers in WebGPU for handling mult
 - Efficient memory management
 - Instance-based rendering
 
-## Key Concepts
-
-- Storage buffer implementation
-- Multiple object rendering
-- Buffer management strategies
-- Instance data handling
-- Performance optimization techniques
+![Triangles with Storage Buffers Example](../../../images/example-storage.png)
 
 This example shows how to efficiently render multiple objects using storage buffers and instance-based techniques. 

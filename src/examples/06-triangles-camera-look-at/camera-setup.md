@@ -8,14 +8,7 @@ This example implements a camera system using the look-at matrix in WebGPU. It c
 - Camera movement and orientation
 - Perspective projection
 
-## Key Concepts
-
-- Camera matrices
-- View transformation
-- Look-at matrix mathematics
-- 3D space navigation
-- Camera controls
-- Perspective projection setup
+![Camera Look-At Example](../../../images/example-camera-look-at.png)
 
 This example shows how to implement a basic camera system, allowing for 3D scene navigation and viewing from different angles. 
 

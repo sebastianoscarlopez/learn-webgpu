@@ -7,12 +7,7 @@ This example builds upon the basic triangle by introducing vertex attribute inte
 - Interpolation of vertex attributes across the triangle
 - Color interpolation techniques
 
-## Key Concepts
+![Triangle with Varyings Example](../../../images/example-varyings.png)
 
-- Vertex attributes and buffers
-- Shader varyings (vertex to fragment data passing)
-- Attribute interpolation
-- Color gradient effects
-- Enhanced shader programming
 
 This example shows how to create more visually interesting effects by passing data between shader stages. 
