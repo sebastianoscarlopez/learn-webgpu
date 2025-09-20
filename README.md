@@ -13,6 +13,7 @@ This project demonstrates various WebGPU examples implemented in TypeScript, fea
 5. Matrices - Render multiple triangles with projection, view and model matrices. [Learn more](src/examples/05-triangles-matrices/matrix-transforms.md)
 6. Camera look at - Render multiple triangles with a camera that can be controlled using the mouse. This "look at" camera is simple and intuitive, making it useful for focusing on a specific object in the scene, even if it is not the most versatile camera type. [Learn more](src/examples/06-triangles-camera-look-at/camera-setup.md)
 7. Cube - Render a cube loaded from a .obj file. [Learn more](src/examples/07-cube/3d-rendering.md)
+8. Directional Lighting - Render multiple 3D objects with directional lighting, demonstrating light direction, color, and normal calculations. [Learn more](src/examples/08-lights-directional/ligths-directional.md)
 
 ## Setup 🛠️
 
@@ -56,6 +57,7 @@ Each demo is implemented as a separate module, making it easy to add new example
 - [Matrix Transforms (matrix-transforms.md)](src/examples/05-triangles-matrices/matrix-transforms.md)
 - [Camera Setup (camera-setup.md)](src/examples/06-triangles-camera-look-at/camera-setup.md)
 - [3D Rendering (3d-rendering.md)](src/examples/07-cube/3d-rendering.md)
+- [Directional Lighting (ligths-directional.md)](src/examples/08-lights-directional/ligths-directional.md)
 - [Cameras (camera.md)](src/libs/camera/camera.md)
 
 ## References and thanks 🚀

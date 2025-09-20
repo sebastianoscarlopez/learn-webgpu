@@ -100,4 +100,8 @@ export class TriangleRenderer {
 
     this.device.queue.submit([commandEncoder.finish()]);
   }
+
+  public dispose(): void {
+    // Nothing to dispose
+  }
 }

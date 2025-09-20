@@ -5,11 +5,23 @@ import triangleStorage from '@/examples/04-triangles-storage';
 import triangleMatrices from '@/examples/05-triangles-matrices';
 import cameraLookAt from '@/examples/06-triangles-camera-look-at';
 import cube from '@/examples/07-cube';
+import lights from '@/examples/08-lights-directional';
 
 import '@/styles.css';
 import '@/drag-and-drop';
 
-const allDemos = [
+interface Demo {
+  title: string;
+  description: string;
+  initDemo: (canvas: HTMLCanvasElement) => Promise<{
+    dispose?: () => void;
+  }> | Promise<void>;
+  renderer?: {
+    dispose?: () => void;
+  };
+}
+
+const allDemos : Demo[] = [
   triangleDemo,
   triangleVaryings,
   triangleUniforms,
@@ -17,13 +29,10 @@ const allDemos = [
   triangleMatrices,
   cameraLookAt,
   cube,
+  lights
 ];
 
-let currentDemo: {
-  title: string;
-  description: string;
-  renderer: any;
-} | null = null;
+let currentDemo: Demo | null = null;
 
 function createButton(title: string, description: string, onClick: () => void): HTMLButtonElement {
   const button = document.createElement('button');
@@ -57,14 +66,16 @@ function initUI() {
 
       currentDemo?.renderer?.dispose?.();
 
-      currentDemo = {
-        title,
-        description,
-        renderer: null,
-      };
+      currentDemo = null;
 
       try {
-        currentDemo.renderer = await initDemo(canvas);
+        const renderer = await initDemo(canvas) || undefined;
+        currentDemo = {
+          title,
+          description,
+          initDemo,
+          renderer,
+        };
       } catch (error: unknown) {
         console.error(`Failed to initialize ${name} demo:`, error);
         const errorMessage = document.createElement('div');
